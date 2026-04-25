@@ -1,18 +1,17 @@
-from pydantic import BaseModel
-from typing import List
+from sqlalchemy.orm import declarative_base
+from sqlalchemy import Column, Integer, String, Text, DateTime, func
+from pgvector.sqlalchemy import Vector
 
-class PDFUploadResponse(BaseModel):
-    filename: str
-    text_excerpt: str
 
-class SearchRequest(BaseModel):
-    query: str
+Base = declarative_base()
 
-class SearchResult(BaseModel):
-    id: int
-    score: float
-    text_excerpt: str
 
-class SearchResponse(BaseModel):
-    query: str
-    results: List[SearchResult]
+class PDFChunk(Base):
+    __tablename__ = "pdf_chunks"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    filename = Column(String(255), nullable=False)
+    chunk = Column(Text, nullable=False)
+    page = Column(Integer, nullable=False)
+    embedding = Column(Vector(1536), nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())

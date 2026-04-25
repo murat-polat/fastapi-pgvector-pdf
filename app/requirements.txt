@@ -12,3 +12,4 @@ python-multipart
 # Optional for LangChain integration
 langchain
 openai
+jinja2

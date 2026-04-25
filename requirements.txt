@@ -1,7 +1,6 @@
 fastapi
 uvicorn[standard]
 pydantic
-
 psycopg2-binary
 pgvector
 PyPDF2
@@ -13,3 +12,4 @@ python-multipart
 # Optional for LangChain integration
 langchain
 openai
+jinja2
